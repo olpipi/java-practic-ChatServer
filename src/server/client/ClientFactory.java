@@ -6,6 +6,7 @@
 package server.client;
 
 import java.net.Socket;
+import java.util.WeakHashMap;
 
 /**
  *
@@ -14,6 +15,9 @@ import java.net.Socket;
 public class ClientFactory {
     
     private static int nextClientId;
+    
+    private static WeakHashMap<String, Client> weakClientMap = new WeakHashMap();
+
     
     static {
         nextClientId = 0;        
@@ -28,15 +32,26 @@ public class ClientFactory {
     }
     
     public static Client createClient(String clientName, Socket clientSocket){
-        return new Client(clientName, clientSocket);
+        String clientId = getIdentifierFromName(clientName);
+        if (weakClientMap.containsKey(clientId)) {
+            return weakClientMap.get(clientId);
+        } else {
+            Client newClient = new Client(clientName, clientSocket);
+            //newClient.setId(clientId);
+            weakClientMap.
+        }
     }
     
     public static Client createClient(Socket clientSocket){
-        return new Client(ClientFactory.getInstance().getDefaultName(), clientSocket);
+        return createClient(ClientFactory.getInstance().getDefaultName(), clientSocket);
     }
     
     static private String getDefaultName () {
         return Integer.toString(nextClientId++);
+    }
+    
+    static public String getIdentifierFromName (String clientName){
+        return clientName;
     }
     
 }
