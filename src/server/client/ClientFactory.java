@@ -13,29 +13,25 @@ import java.net.Socket;
  */
 public class ClientFactory {
     
-    private static int nextClientId;
-    
-    static {
-        nextClientId = 0;        
-    }
-    
+    private int nextClientId = 0;
+
     public static class FactoryHolder {
-	public static final ClientFactory HOLDER_INSTANCE = new ClientFactory();
+	    static final ClientFactory HOLDER_INSTANCE = new ClientFactory();
     }
     
     public static ClientFactory getInstance() {
         return FactoryHolder.HOLDER_INSTANCE;
     }
     
-    public static Client createClient(String clientName, Socket clientSocket){
+    public Client createClient(String clientName, Socket clientSocket){
         return new Client(clientName, clientSocket);
     }
     
-    public static Client createClient(Socket clientSocket){
-        return new Client(ClientFactory.getInstance().getDefaultName(), clientSocket);
+    public Client createClient(Socket clientSocket){
+        return new Client(this.getDefaultName(), clientSocket);
     }
     
-    static private String getDefaultName () {
+     private String getDefaultName () {
         return Integer.toString(nextClientId++);
     }
     

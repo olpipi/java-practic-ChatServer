@@ -6,6 +6,7 @@
 package server;
 
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,6 +23,12 @@ import server.client.ProxyHandler;
  */
 class Server implements Runnable {
 
+    private ServerSocket servSocket;
+
+    Server (ServerSocket socket) {
+        this.servSocket = socket;
+    }
+
     @Override
     public void run() {
         
@@ -29,7 +36,7 @@ class Server implements Runnable {
         while (true) {
             
             try {
-                Socket newClientSocket = ChatServer.getInstance().getSocket().accept();
+                Socket newClientSocket = this.servSocket.accept();
                 
                 Client newClient = ClientFactory.getInstance().createClient(newClientSocket);
                 ClientProxy m_clientProxy =  ProxyHandler.getInstance().addClient(newClient);

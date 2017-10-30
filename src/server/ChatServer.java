@@ -21,23 +21,13 @@ public class ChatServer {
     private static ServerSocket servSocket;
     
     
-    public static class ServerHolder {
-	public static final ChatServer HOLDER_INSTANCE = new ChatServer();
-    }
-		
-    public static ChatServer getInstance() {
-    return ServerHolder.HOLDER_INSTANCE;
-    }
-    
-    
-    
     public static void main(String[] args){
         
         
-        ChatServer.getInstance().initialize();
+        initialize();
         System.out.println("Server socket was sucessfully openned");
         
-        Server serverThread = new Server();
+        Server serverThread = new Server(servSocket);
         Thread t = new Thread(serverThread);
         t.start();
         try {
@@ -59,8 +49,8 @@ public class ChatServer {
     }
     
     public static ServerSocket getSocket(){
-        return ChatServer.getInstance().servSocket;
-    };
+        return ChatServer.servSocket;
+    }
     
     
     

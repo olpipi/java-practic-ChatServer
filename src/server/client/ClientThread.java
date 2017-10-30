@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 public class ClientThread implements Runnable{
     
     /*Socket to client*/
-    private final Socket clientSocket;
+    private Socket clientSocket;
     /*ClientProxy which is owner of this Thread*/
     private final ClientProxy owner;
     
@@ -55,7 +55,6 @@ public class ClientThread implements Runnable{
                     // серверной нити
                     System.out.println("Client initialize connections suicide ...");
                     out.writeUTF("Server reply - " + entry + " - OK");
-                    Thread.sleep(3000);
                     break;
                 }
 
@@ -73,16 +72,22 @@ public class ClientThread implements Runnable{
             }
         } catch (IOException ex) {
             Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
             Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 in.close();
                 out.close();
+                clientSocket.close();
+                System.out.println("Socket  is closed");
+                Thread.sleep(3000);
             } catch (IOException ex) {
                 Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             } finally {
-                System.out.println("ClientHandler stopped");
+                clientSocket = null;
+                owner.stopProxy();
+                System.out.println("ClientProxy is stopped");
             }
         }
         
