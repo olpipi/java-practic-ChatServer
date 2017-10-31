@@ -1,1 +1,1 @@
-# java-practic-echo-server
+# java-practic-chat-server
