@@ -28,7 +28,7 @@ public class ClientFactory {
     }
     
     public Client createClient(Socket clientSocket){
-        return new Client(this.getDefaultName(), clientSocket);
+        return new Client(getDefaultName(), clientSocket);
     }
     
      private String getDefaultName () {

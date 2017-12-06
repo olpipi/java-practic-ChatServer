@@ -21,17 +21,18 @@ import server.client.ProxyHandler;
  *
  * @author Oleg
  */
-class Server implements Runnable {
+class Server {
 
     private ServerSocket servSocket;
+
 
     Server (ServerSocket socket) {
         this.servSocket = socket;
     }
 
-    @Override
-    public void run() {
-        
+    void startServer() {
+
+        System.out.println("MainLoop started");
         System.out.println("Start listen ServerSocket. Wainting for client");
         while (true) {
             

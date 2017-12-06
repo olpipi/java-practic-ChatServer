@@ -27,14 +27,9 @@ public class ChatServer {
         initialize();
         System.out.println("Server socket was sucessfully openned");
         
-        Server serverThread = new Server(servSocket);
-        Thread t = new Thread(serverThread);
-        t.start();
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ChatServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Server m_server = new Server(servSocket);
+        m_server.startServer();
+        System.out.println("Server stopped. Shutdown");
     }
     
     
