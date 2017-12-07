@@ -42,8 +42,9 @@ public class ClientThread implements Runnable{
 
                 // серверная нить ждёт в канале чтения (inputstream) получения
                 // данных клиента после получения данных считывает их
+                System.out.println("123123123");
                 String entry = in.readUTF();
-
+                System.out.println("312321312");
                 // и выводит в консоль
                 System.out.println("READ from client message - " + entry);
 

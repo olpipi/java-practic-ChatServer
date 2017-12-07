@@ -2,25 +2,12 @@ package server.chat_handler;
 
 import server.client.Client;
 
-public class Message {
+public interface Message {
 
-    String messageText;
-    Client owner;
+    public String getText ();
 
-    Message() {
-        messageText = new String ();
-    }
+    public void setText (String text);
 
-    Message(String initText) {
-        messageText = new String (initText);
-    }
-
-    String getText (){
-        return this.messageText;
-    }
-
-    void setText (String text) {
-        this.messageText = text;
-    }
+    public Client getOwner();
 
 }

@@ -5,6 +5,8 @@
  */
 package server.chat_handler;
 
+import server.client.Client;
+
 import java.net.Socket;
 
 /**
@@ -21,11 +23,11 @@ public class MessageFactory {
         return FactoryHolder.HOLDER_INSTANCE;
     }
 
-    public Message createMessage(String messageText){
-        return new Message(messageText);
+    public Message createMessage(String messageText, Client from){
+        return new UserMessage(messageText, from);
     }
 
-    public Message createMessage(){
-        return new Message();
+    public Message createMessage(Client from){
+        return new UserMessage(from);
     }
 }

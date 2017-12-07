@@ -2,13 +2,13 @@ package server.chat_handler;
 
 import java.util.ArrayDeque;
 
-public class chatHandler {
+public class ChatHandler {
 
     final int queueCapacity = 10;
 
     ArrayDeque<Message> messageQueue;
 
-    chatHandler () {
+    ChatHandler () {
         messageQueue =  new ArrayDeque<Message>(queueCapacity);
     }
 
@@ -26,7 +26,9 @@ public class chatHandler {
         return messageQueue.getFirst();
     }
 
-
+    Message[] getChatHistory(){
+        return new Message[]{messageQueue.getFirst()};
+    }
 
 
 
